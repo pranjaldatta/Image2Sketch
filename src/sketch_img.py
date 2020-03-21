@@ -7,12 +7,24 @@ from PIL import Image
 import io
 import numpy as np
 import cv2
+import matplotlib.pyplot as plt
 
+
+try:
+    sys.path.index(os.path.dirname(os.path.abspath(__file__))+"/pytorch-CycleGAN-and-pix2pix")
+except ValueError:          
+    print("Appending...")  
+    sys.path.append(os.path.dirname(os.path.abspath(__file__))+"/pytorch-CycleGAN-and-pix2pix")  
+
+import torch
+from torchvision import transforms
+from options import test_options
+from models import create_model
 
 def infer(b64):
     
     #we handle the options first. hardcode some params  
-    opts = options.TestOptions()
+    opts = test_options.TestOptions().parse()
     opts.num_threads = 0
     opts.batch_size = 1
     opts.serial_batches = True
@@ -24,49 +36,62 @@ def infer(b64):
     opts.netG = "unet_256"
     opts.direction = "BtoA"
     opts.dataset_mode = "single"    
-    opts.norm = "batch"
-    opts = opts.parse()
+    opts.norm = "batch"    
 
-    model = models.create_model(opts)
+    model = create_model(opts)
     model.setup(opts)
 
     if opts.eval:
         model.eval()
 
-    cv2.namedWindow("Frame")
     img = Image.open(io.BytesIO(base64.decodebytes(b64)))
-    img = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2RGB)
 
-    cv2.imshow("Frame", img)
+    plt.imshow(img)
+    plt.show()
 
+    tsfms = transforms.Compose([
+        transforms.Resize((256,256), Image.BICUBIC),
+        transforms.ToTensor(),
+        transforms.Normalize((.5,.5,.5),(.5,.5,.5))
+    ])
+
+    img = tsfms(img)
+
+    img = torch.unsqueeze(img, 0)
+
+    data = {
+        "A": img,
+        "A_paths": __file__
+    }
+
+    model.set_input(data)
+    model.test()
+
+    visuals = model.get_current_visuals()
+
+    fake = list(visuals.items())[1][1]
+    fake = fake.data
+    fake = torch.squeeze(fake, 0).float().numpy()
+    fake = (np.transpose(fake, (1,2,0)) + 1)/ 2.0 * 255.0
+    fake = fake.astype(np.uint8)
+
+    buff = io.BytesIO()
+    fake = Image.fromarray(fake)
+    fake.save(buff, "PNG")
+    return base64.b64encode(buff.getvalue())
 
 
 if __name__ == "__main__":
-    try:
-        sys.path.index(os.path.dirname(os.path.abspath(__file__))+"/pytorch-CycleGAN-and-pix2pix")
-    except ValueError:  
-        
-        print("Appending...")  
-        sys.path.append(os.path.dirname(os.path.abspath(__file__))+"/pytorch-CycleGAN-and-pix2pix")    
-    
-    
-    options = importlib.import_module("pytorch-CycleGAN-and-pix2pix.options.test_options")
-    models = importlib.import_module("pytorch-CycleGAN-and-pix2pix.models")
-    create_dataset = importlib.import_module("pytorch-CycleGAN-and-pix2pix.data", "create_dataset")
     
     parser = argparse.ArgumentParser()
     parser.add_argument("-b", "--base64", action="store", help="base64 string of the image")
     parser.add_argument("-i", "--img", action="store", help="Address of the image")
     args = parser.parse_args()
 
-    with open(args.img, "rb") as f:
-        string = base64.b64encode(f.read())
-    infer(string)
-"""
-with open("img.jpg", "wb") as fs:
-    fs.write(base64.decodebytes(string))
+    if args.base64:
+        print(infer(args.base64))
+    else:
+        with open(args.img, "rb") as f:
+            string = base64.b64encode(f.read())
+        print(infer(string))
 
-img = Image.open(io.BytesIO(base64.decodebytes(string)))
-img = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2RGB)
-print(type(img))
-"""
