@@ -10,10 +10,10 @@ import cv2
 import matplotlib.pyplot as plt
 
 
+
 try:
     sys.path.index(os.path.dirname(os.path.abspath(__file__))+"/pytorch-CycleGAN-and-pix2pix")
 except ValueError:          
-    print("Appending...")  
     sys.path.append(os.path.dirname(os.path.abspath(__file__))+"/pytorch-CycleGAN-and-pix2pix")  
 
 import torch
@@ -30,13 +30,14 @@ def infer(b64):
     opts.serial_batches = True
     opts.no_flip = True
     opts.display_id = -1
-    opts.checkpoints_dir = "./pytorch-CycleGAN-and-pix2pix/checkpoints"
+    opts.checkpoints_dir = "./src/pytorch-CycleGAN-and-pix2pix/checkpoints"
     opts.name = "sketch_pix2pix"
     opts.model = "test"
     opts.netG = "unet_256"
     opts.direction = "BtoA"
     opts.dataset_mode = "single"    
-    opts.norm = "batch"    
+    opts.norm = "batch"   
+    
 
     model = create_model(opts)
     model.setup(opts)
@@ -44,10 +45,8 @@ def infer(b64):
     if opts.eval:
         model.eval()
 
-    img = Image.open(io.BytesIO(base64.decodebytes(b64)))
+    img = Image.open(io.BytesIO(base64.decodebytes(bytes(b64, 'utf-8'))))
 
-    plt.imshow(img)
-    plt.show()
 
     tsfms = transforms.Compose([
         transforms.Resize((256,256), Image.BICUBIC),
@@ -77,21 +76,36 @@ def infer(b64):
 
     buff = io.BytesIO()
     fake = Image.fromarray(fake)
-    fake.save(buff, "PNG")
+    fake.save("fake4.jpeg")
+    fake.save(buff, "JPEG")
     return base64.b64encode(buff.getvalue())
 
-
 if __name__ == "__main__":
+
+    
+    sys.stdout = open(os.devnull, 'w')
+    
     
     parser = argparse.ArgumentParser()
     parser.add_argument("-b", "--base64", action="store", help="base64 string of the image")
     parser.add_argument("-i", "--img", action="store", help="Address of the image")
     args = parser.parse_args()
-
     if args.base64:
-        print(infer(args.base64))
+        fake_b64 = infer(args.base64)
+        sys.stdout = sys.__stdout__
+        resp_obj = {
+            "encoding" : fake_b64
+        }
+        print(resp_obj)
+
+
     else:
         with open(args.img, "rb") as f:
             string = base64.b64encode(f.read())
-        print(infer(string))
+            resp_obj = {
+                'encoding': string
+            }
+            print(resp_obj)
+
+
 
