@@ -1,0 +1,20 @@
+#input-image {
+    position: relative;
+    top: 250px;
+    left: -150px;
+}
+
+#output-image {
+    position: relative;
+    top: 250px;
+}
+
+.file-select {
+    position: relative;
+    bottom: 200px;
+}
+
+.file-submit {
+    position: relative;
+    bottom: 200px;
+}
