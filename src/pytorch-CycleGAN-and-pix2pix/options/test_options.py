@@ -23,6 +23,5 @@ class TestOptions(BaseOptions):
         #adding two more options to make it work
         parser.add_argument("-b", "--base64", action="store", help="base64 string of the image")
         parser.add_argument("-i", "--img", action="store", help="Address of the image")
-
         self.isTrain = False
         return parser
