@@ -3,11 +3,6 @@ import sys
 from server.action import action
 
 app = Flask(__name__)
-
-@app.route("/")
-def hello():
-    return "Hello world!"
-
 @app.route("/home")
 def home():
     return render_template("home.html")
@@ -23,7 +18,7 @@ def test():
     print("Success")
     return jsonify({'status': 'success'})   
 
-@app.route("/index")
+@app.route("/")
 def index():
     return render_template("index.html")
 
