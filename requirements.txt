@@ -21,3 +21,4 @@ urllib3==1.25.7
 visdom==0.1.8.9
 websocket-client==0.57.0
 Werkzeug==1.0.0
+opencv-python==4.1.1
