@@ -1,7 +1,10 @@
 .DS_Store
 debug*
 datasets/
-checkpoints/
+checkpoints/sketch_pix2pix/[0-9][0-9]_net_D.pth
+checkpoints/sketch_pix2pix/[0-9][0-9]_net_G.pth
+checkpoints/sketch_pix2pix/[0-9]_net_D.pth
+checkpoints/sketch_pix2pix/[0-9]_net_G.pth
 results/
 build/
 dist/
