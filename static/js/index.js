@@ -44,7 +44,7 @@ $('.file-submit').click(function() {
   
 })*/
 
-const url = "/convert"
+const url = "http://0.0.0.0:5000/convert"
 $('.file-submit').click(function() {
     console.log("clicked!")
     imgbox = $('#input-image')
