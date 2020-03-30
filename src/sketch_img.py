@@ -31,6 +31,7 @@ def infer(b64):
     opts.no_flip = True
     opts.display_id = -1
     opts.checkpoints_dir = "./src/pytorch-CycleGAN-and-pix2pix/checkpoints"
+    #opts.checkpoints_dir = "./pytorch-CycleGAN-and-pix2pix/checkpoints"
     opts.name = "sketch_pix2pix"
     opts.model = "test"
     opts.netG = "unet_256"
@@ -40,13 +41,17 @@ def infer(b64):
     
 
     model = create_model(opts)
+    #print(opts)
     model.setup(opts)
 
     if opts.eval:
         model.eval()
-
-    img = Image.open(io.BytesIO(base64.decodebytes(bytes(b64, 'utf-8'))))
-
+    
+    if isinstance(b64, bytes):
+        img = Image.open(io.BytesIO(base64.decodebytes(b64)))
+    else:    
+        img = Image.open(io.BytesIO(base64.decodebytes(bytes(b64, 'utf-8'))))
+    
 
     tsfms = transforms.Compose([
         transforms.Resize((256,256), Image.BICUBIC),
@@ -102,8 +107,9 @@ if __name__ == "__main__":
     else:
         with open(args.img, "rb") as f:
             string = base64.b64encode(f.read())
+            res = infer(string)
             resp_obj = {
-                'encoding': string
+                'encoding': res
             }
             print(resp_obj)
 
