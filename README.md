@@ -4,7 +4,7 @@ Translate self-potraits to sketchs using pix2pix
 
 ### Demo
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=dLvr5bdT36s" target="_blank"><img src="http://img.youtube.com/vi/dLvr5bdT36s/0.jpg" alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=dLvr5bdT36s" target="_blank"><img src="http://img.youtube.com/vi/dLvr5bdT36s/0.jpg" alt="IMAGE ALT TEXT HERE" width="300" height="300"  /></a>
 
 
 ### Examples
