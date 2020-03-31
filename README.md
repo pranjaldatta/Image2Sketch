@@ -11,7 +11,7 @@ In this project, a pix2pix PyTorch Implementation was trained on a custom genera
 
 ### Get Started
 
-* *STEP 1: Clone the Repository*
+ /home/pranjal/Projects/Image2Sketch* *STEP 1: Clone the Repository*
    
    Paste the following command in your terminal
 ```
@@ -25,12 +25,16 @@ $ git clone https://github.com/pranjaldatta/Image2Sketch.git
 $ conda env create -f env.yaml
 ```
 
-* *STEP 3: Run local server*
+* *STEP 3: Get the pre-trained weights*
+   
+   Download the pretrained weights from [here](https://drive.google.com/drive/folders/1fkHJesOOYjYWR9NH97iywD6TTuSJ7vDVusp=sharing), extract and place it in the /src/pytorch-CycleGAN-and-pix2pix/checkpoints
+
+* *STEP 4: Run local server*
 ```
 $ ./run_server.sh
 ```
 
-* *STEP 4: Visit http://localhost:5000/*
+* *STEP 5: Visit http://localhost:5000/*
     
    Visit http://localhost:5000/ and select an image and hit submit. 
    Check out the demo video!
@@ -62,3 +66,7 @@ $ ./run_server.sh
 
 <img src="https://github.com/pranjaldatta/Image2Sketch/blob/master/examples/example4.jpg" height=200 width=200></img> 
 <img src="https://github.com/pranjaldatta/Image2Sketch/blob/master/examples/example4_result.jpeg" height=200 width=200></img>
+
+
+
+
