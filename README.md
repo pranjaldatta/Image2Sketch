@@ -68,5 +68,10 @@ $ ./run_server.sh
 <img src="https://github.com/pranjaldatta/Image2Sketch/blob/master/examples/example4_result.jpeg" height=200 width=200></img>
 
 
+### Training
+    
+For training check out the [doc](https://github.com/pranjaldatta/Image2Sketch/blob/master/docs/TRAINING.md)
+   
+
 
 
