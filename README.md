@@ -1,6 +1,39 @@
 # Image2Sketch
 Translate self-potraits to sketchs using pix2pix
 
+### About
+
+Image translation from one domain to another domain is one of the most interesting applications of computer vision. 
+The paper [Image translation using Conditional GANs](https://arxiv.org/pdf/1611.07004.pdf) demonstrated the use of cGANs for 
+Image Translation.
+
+In this project, a pix2pix PyTorch Implementation was trained on a custom generated dataset to translate potraits of people into their corresponding sketches. It was deployed as a simple web app using flask. 
+
+### Get Started
+
+* *STEP 1: Clone the Repository*
+   
+   Paste the following command in your terminal
+```
+$ git clone https://github.com/pranjaldatta/Image2Sketch.git
+```
+
+* *STEP 2: Create a conda environment* 
+
+   From the cloned repository root, run the following command
+```
+$ conda env create -f env.yaml
+```
+
+* *STEP 3: Run local server*
+```
+$ ./run_server.sh
+```
+
+* *STEP 4: Visit http://localhost:5000/*
+    
+   Visit http://localhost:5000/ and select an image and hit submit. 
+   Check out the demo video!
 
 ### Demo
 
