@@ -27,7 +27,7 @@ $ conda env create -f env.yaml
 
 * *STEP 3: Get the pre-trained weights*
    
-   Download the pretrained weights from [here](https://drive.google.com/drive/folders/1fkHJesOOYjYWR9NH97iywD6TTuSJ7vDVusp=sharing), extract and place it in the /src/pytorch-CycleGAN-and-pix2pix/checkpoints
+   Download the pretrained weights from [here](https://drive.google.com/drive/folders/1fkHJesOOYjYWR9NH97iywD6TTuSJ7vDVusp=sharing), extract and place it in the /src/pytorch-CycleGAN-and-pix2pix/checkpoints/sketch_pix2pix
 
 * *STEP 4: Run local server*
 ```
