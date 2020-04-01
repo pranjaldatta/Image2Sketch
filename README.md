@@ -11,7 +11,7 @@ In this project, a pix2pix PyTorch Implementation was trained on a custom genera
 
 ### Get Started
 
- /home/pranjal/Projects/Image2Sketch* *STEP 1: Clone the Repository*
+* *STEP 1: Clone the Repository*
    
    Paste the following command in your terminal
 ```
