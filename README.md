@@ -73,5 +73,8 @@ $ ./run_server.sh
 For training check out the [doc](https://github.com/pranjaldatta/Image2Sketch/blob/master/docs/TRAINING.md)
    
 
+### Credits: 
 
+* [LFW Dataset](http://vis-www.cs.umass.edu/lfw/)
+* [This](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix) brilliant implementation in PyTorch
 
